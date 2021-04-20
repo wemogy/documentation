@@ -15,8 +15,9 @@ jobs:
         node-version: '12.x'
     - run: yarn install
     - run: |
-        git config user.name $GITHUB_ACTOR
-        git config user.email $GITHUB_ACTOR@users.noreply.github.com
+        echo "Actor: $GITHUB_ACTOR"
+        git config -global user.name $GITHUB_ACTOR
+        git config -global user.email $GITHUB_ACTOR@users.noreply.github.com
         yarn deploy
       env:
         GIT_USER: $GITHUB_ACTOR
