@@ -1,0 +1,23 @@
+name: Update documentaion
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest    
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: '12.x'
+    - run: yarn install
+    - run: |
+        git config user.name $GITHUB_ACTOR
+        git config user.email $GITHUB_ACTOR@users.noreply.github.com
+        yarn deploy
+      env:
+        GIT_USER: $GITHUB_ACTOR
+        GIT_PASS: ${{ secrets.GITHUB_TOKEN }}        
