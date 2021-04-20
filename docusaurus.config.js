@@ -2,13 +2,13 @@
 module.exports = {
 	title: 'wemogy',
 	tagline: 'Dinosaurs are cool',
-	url: 'https://wemogy.github.io/',
+	url: 'https://wemogy.github.io/docs/',
 	baseUrl: '/',
 	onBrokenLinks: 'throw',
 	onBrokenMarkdownLinks: 'warn',
 	favicon: 'img/favicon.ico',
 	organizationName: 'wemogy', // Usually your GitHub org/user name.
-	projectName: 'wemogy.github.io', // Usually your repo name.
+	projectName: 'docs', // Usually your repo name.
 	themeConfig: {
 		navbar: {
 			title: 'wemogy Docs',
