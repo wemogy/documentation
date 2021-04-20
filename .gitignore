@@ -37,3 +37,7 @@ nuget.config
 
 # Terraform
 .terraform/
+
+# Generated files
+.docusaurus
+.cache-loader
