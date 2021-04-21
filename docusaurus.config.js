@@ -11,7 +11,7 @@ module.exports = {
 	projectName: 'documentation', // Usually your repo name.
 	themeConfig: {
 		navbar: {
-			title: 'wemogy Docs',
+			title: 'Developers',
 			logo: {
 				alt: 'wemogy logo',
 				src: 'img/logo.svg'
