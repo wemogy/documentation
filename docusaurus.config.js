@@ -2,8 +2,8 @@
 module.exports = {
 	title: 'wemogy',
 	tagline: 'Dinosaurs are cool',
-	url: 'https://wemogy.github.io/',
-	baseUrl: '/documentation/',
+	url: 'https://docs.wemogy.com/',
+	baseUrl: '/',
 	onBrokenLinks: 'throw',
 	onBrokenMarkdownLinks: 'warn',
 	favicon: 'img/favicon.ico',
