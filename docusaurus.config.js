@@ -1,7 +1,7 @@
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
 	title: 'wemogy',
-	tagline: 'Dinosaurs are cool',
+	tagline: 'Web & Mobile Technology',
 	url: 'https://docs.wemogy.com/',
 	baseUrl: '/',
 	onBrokenLinks: 'throw',
@@ -13,15 +13,15 @@ module.exports = {
 		navbar: {
 			title: 'wemogy Docs',
 			logo: {
-				alt: 'My Site Logo',
+				alt: 'wemogy logo',
 				src: 'img/logo.svg' // TODO: Use SVG
 			},
 			items: [
 				{
 					type: 'doc',
-					docId: 'intro',
+					docId: 'overview',
 					position: 'left',
-					label: 'Tutorial'
+					label: 'Documentation'
 				},
 				{ to: '/blog', label: 'Blog', position: 'left' },
 				{
@@ -38,8 +38,8 @@ module.exports = {
 					title: 'Docs',
 					items: [
 						{
-							label: 'Tutorial',
-							to: '/docs/intro'
+							label: 'Overview',
+							to: '/docs/overview'
 						}
 					]
 				},
