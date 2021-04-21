@@ -14,7 +14,7 @@ module.exports = {
 			title: 'wemogy Docs',
 			logo: {
 				alt: 'My Site Logo',
-				src: 'img/wemogy.png' // TODO: Use SVG
+				src: 'img/logo.svg' // TODO: Use SVG
 			},
 			items: [
 				{
