@@ -8,7 +8,7 @@ module.exports = {
 	onBrokenMarkdownLinks: 'warn',
 	favicon: 'img/favicon.ico',
 	organizationName: 'wemogy', // Usually your GitHub org/user name.
-	projectName: 'docs', // Usually your repo name.
+	projectName: 'documentation', // Usually your repo name.
 	themeConfig: {
 		navbar: {
 			title: 'wemogy Docs',
