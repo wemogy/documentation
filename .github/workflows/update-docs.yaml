@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest    
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
@@ -14,10 +14,11 @@ jobs:
       with:
         node-version: '12.x'
     - run: yarn install
+    - run: yarn build
     - run: |
         git config --global user.name $GITHUB_ACTOR
         git config --global user.email $GITHUB_ACTOR@users.noreply.github.com
-        yarn deploy
+        yarn deploy --skip-build
       env:
         GIT_USER: $GITHUB_ACTOR
-        GIT_PASS: ${{ secrets.GITHUB_TOKEN }}        
+        GIT_PASS: ${{ secrets.GITHUB_TOKEN }}
