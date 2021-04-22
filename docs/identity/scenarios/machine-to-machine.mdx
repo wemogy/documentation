@@ -38,9 +38,9 @@ This client has a secret which needs to be protected. Never use this client or i
 
 :::
 
-## Retrieve an Access Token
+## Request an Access Token
 
-Once the client has been created, you can call the `/token` endpoint to get an Access Token.
+Once the client has been created, you can request an Access Token.
 
 <Tabs
 	groupId="framework"
@@ -51,6 +51,8 @@ Once the client has been created, you can call the `/token` endpoint to get an A
   ]
 }>
 <TabItem value="curl">
+
+Call the `/token` endpoint and add your client details in `x-www-form-urlencoded` format to request an Access Token directly.
 
 ```bash
 curl --request POST 'http://<PUBLIC_ENDPOINT>/oauth/token' \
@@ -65,7 +67,7 @@ curl --request POST 'http://<PUBLIC_ENDPOINT>/oauth/token' \
 </TabItem>
 <TabItem value="aspnetcore">
 
-You can use our [Wemogy.Identity.AspNetCore NuGet package](https://github.com/wemogy/identity/packages/674418) in your ASP.NET Core projects, to get an Access Token to call another API.
+You can use our NuGet package [`Wemogy.Identity.AspNetCore`](https://github.com/wemogy/identity/packages/674418) in your ASP.NET Core projects, to request an Access Token to call another API.
 
 ```bash
 dotnet add package Wemogy.Identity.AspNetCore
