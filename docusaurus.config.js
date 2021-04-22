@@ -67,7 +67,11 @@ module.exports = {
 				}
 			],
 			copyright: `Copyright © ${new Date().getFullYear()} wemogy GmbH.`
-		}
+		},
+		prism: {
+      //theme: require('prism-react-renderer/themes/dracula'),
+			additionalLanguages: ['csharp']
+    },
 	},
 	presets: [
 		[
