@@ -97,7 +97,7 @@ public class DemoController : ControllerBase
 	[HttpGet]
 	public async Task Test()
 	{
-		var token = await _tokenSevice.GetAccessTokenAsync();
+		var token = await _tokenService.GetTokenAsync();
 
 		// ...
 	}
