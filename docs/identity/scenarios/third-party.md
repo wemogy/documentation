@@ -1,8 +1,8 @@
 ---
-sidebar_position: 1
+sidebar_position: 3
 ---
 
-# Frontend App
+# Third Party App
 
 TBD...
 
@@ -16,10 +16,8 @@ curl --request POST 'http://<ADMIN_ENDPOINT>/client' \
   "audience": [ "https://localhost:5001/" ],
   "grant_types": [ "authorization_code", "refresh_token" ],
   "response_types": [ "code" ],
-  "scope": "read:secrets offline_access",
+  "scope": "read:secrets openid offline_access",
   "redirect_uris": [ "<YOUR_DOMAIN>/callback" ],
   "client_type": "frontend"
 }'
 ```
-
-
