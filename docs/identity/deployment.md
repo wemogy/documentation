@@ -15,12 +15,12 @@ The project is designed to be deployed as containers. We currently only support 
   - [Cert Manager](https://cert-manager.io/docs/installation/kubernetes/) installed
   - Access to our private Container Registry
 - Helm installed
-- A PostgreSQL database server with [databases for the tenant](internal/MULTI_TENANCY.md)
+- A PostgreSQL database server with databases for the tenant
 - A custom domain with a CNAME Record `auth.` on your domain pointing to `identity.<YOUR_TENANT_NAME>.wemogy.cloud`
 
 ### Install via Helm
 
-Add the Helm repositoy
+Add the Helm repository
 
 ```bash
 helm repo add wemogy https://wemogy.github.io/helm/charts
