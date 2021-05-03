@@ -23,6 +23,13 @@ module.exports = {
 					position: 'left',
 					label: 'Documentation'
 				},
+				{
+					type: 'doc',
+					docId: 'overview',
+					docsPluginId: "docs-internal",
+					position: 'left',
+					label: 'Internal'
+				},
 				{ to: '/blog', label: 'Blog', position: 'left' },
 				{
 					href: 'https://github.com/wemogy',
@@ -79,12 +86,10 @@ module.exports = {
 			{
 				docs: {
 					sidebarPath: require.resolve('./sidebars.js'),
-					// Please change this to your repo.
 					editUrl: 'https://github.com/wemogy/documentation/edit/main/'
 				},
 				blog: {
 					showReadingTime: true,
-					// Please change this to your repo.
 					editUrl: 'https://github.com/wemogy/documentation/edit/main/blog/'
 				},
 				theme: {
@@ -92,5 +97,17 @@ module.exports = {
 				}
 			}
 		]
-	]
+	],
+	plugins: [
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'docs-internal',
+        path: 'docs-internal',
+        routeBasePath: 'docs-internal',
+        sidebarPath: require.resolve('./sidebars-internal.js'),
+				editUrl: 'https://github.com/wemogy/documentation/edit/main/'
+      },
+    ],
+  ],
 };
