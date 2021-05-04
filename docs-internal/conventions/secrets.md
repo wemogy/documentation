@@ -26,7 +26,6 @@ After that you need to set an environment variable in the build pipeline. In ord
 ```yaml
 - name: Test
   run: dotnet test --no-build --verbosity normal
-  working-directory: ${{ steps.get-folder-name.outputs.folderName }}
   env:
     RedisCache__ConnectionString: ${{ secrets.REDIS_CONNECTION_STRING }}
 ```
