@@ -1,3 +1,7 @@
+---
+sidebar_position: 2
+---
+
 # Components
 
 TBD...
@@ -21,7 +25,7 @@ TBD...
 
 ## Environment
 
-Consoldiates client and context
+Consolidates client and context
 
 `IEnvironment`
 
@@ -53,6 +57,7 @@ The `GeneralGetFilter` only gets applied to **Read operations** and will not fil
 protected override Task<Expression<Func<Subscription, bool>>> GeneralGetFilter()
 {
     // Ensures, that only items from the current tenant can be read
+    // TODO: Check, if user is allowed to see this Tenant
     return Task.FromResult<Expression<Func<Subscription, bool>>>(x => x.TenantId == Context.ActiveTenantId);
 }
 ```
@@ -67,7 +72,6 @@ The Database Service uses hooks to let you add custom logic to the most importan
 1. After operation
 
 #### Authorize
-
 
 
 #### Validation
