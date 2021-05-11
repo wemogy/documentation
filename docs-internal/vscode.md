@@ -20,8 +20,9 @@ Tips, tricks and recommendations for Visual Studio Code.
 - Live Share
 - markdownlint
 - Todo Tree
-- Visual Studio IntelliCode
-- YAML
+- [Visual Studio IntelliCode](https://marketplace.visualstudio.com/items?itemName=VisualStudioExptTeam.vscodeintellicode)
+- [YAML](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml)
+- [Debugger for Chrome](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome)
 
 #### Nice to have
 
@@ -30,6 +31,7 @@ Tips, tricks and recommendations for Visual Studio Code.
 - Task Explorer
 - Kubernetes
 - Bracket Pair Colorizer 2
+- [vsc-scaffolding](https://marketplace.visualstudio.com/items?itemName=alfnielsen.vsc-scaffolding)
 
 ## Recommended settings
 
