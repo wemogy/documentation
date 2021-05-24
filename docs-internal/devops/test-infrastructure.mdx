@@ -1,0 +1,220 @@
+---
+sidebar_position: 1
+---
+
+# Test Infrastructure
+
+Especially for integration tests, often there is some testing infrastructure like databases required. This article explains how to set up test infrastructure and spin it up and down dynamically before and after running integration tests to save cloud costs.
+
+## Terraform
+
+We use Terraform as an *Infrastructure as Code* technology to describe the required infrastructure for our Integration Tests and to be able to dynamically spin it up and down. Please check out our [Terraform Guide](/docs-internal/devops/terraform) for more.
+
+### Remote backend
+
+#### Create a Remote Backend in Azure
+
+Every project get its own remote Terraform backend. In Azure, we have a central Azure Resource Group for hosting all Terraform Backends that are used for Integration Tests. Each projects gets its own Azure Storage Account in there.
+
+:::info Information
+
+Currently, we host the Integration Test infrastructure in the Subscription `0b05fa67-dd74-4ed1-9d85-d1a04b6e4c33`. Please see the [Azure Subscriptions Overview](/docs-internal/azure/subscriptions) for details.
+
+:::
+
+Create an Azure Storage Account with a Blob Container in the central *terraform* Resource Group for your Terraform Backend.
+
+```bash
+az storage account create \
+  --name <PROJECT_NAME> \ # Example: wemogyidentity - Must be unique, so it's recommended to prepend 'wemogy'
+  --resource-group terraform \
+  --location westeurope \
+  --kind StorageV2
+
+az storage container create \
+  --name tfstate \
+  --account-name <PROJECT_NAME>
+```
+
+#### Point the Terraform script to the Remote Backend
+
+Once the Remote Backend is up, we need to point to it in Terraform.
+
+```hcl title="main.tf"
+terraform {
+  backend "azurerm" {
+    subscription_id      = "0b05fa67-dd74-4ed1-9d85-d1a04b6e4c33"
+    tenant_id            = "366f0c02-d569-4dae-a693-34d9262182ea"
+    resource_group_name  = "terraform"
+    storage_account_name = "<PROJECT_NAME>" # <- Change this
+    container_name       = "tfstate"
+    key                  = "terraform.tfstate"
+  }
+}
+```
+
+### Best practices
+
+#### Output Connection Strings and Secrets
+
+As we dynamically create Cloud Resources with Terraform before the test runs, the Secrets and Connection Strings don't stay consistent and can change for each test run. This is why we have to make sure, that the Terraform script returns those Secrets and Connection strings as [output variables](https://www.terraform.io/docs/language/values/outputs.html).
+
+```hcl title="outputs.tf"
+output "cosmosdb_connection_string" {
+  value     = azurerm_cosmosdb_account.default.connection_strings[0]
+  sensitive = true
+}
+```
+
+These output variables can be fed into the Tests later.
+
+#### Random names
+
+Some Azure Resources require unique names. To ensure that and to avoid conflicts with existing infrastructure, it is recommended, to [use random names](/docs-internal/devops/terraform#random-names) for test resources.
+
+#### No prevent-destroy hooks
+
+Usually, we recommend using [prevent-destory lifecycle hooks](/docs-internal/devops/terraform#random-names) in Terraform scripts in our [Terraform Best Practices](/docs-internal/devops/terraform#best-practices) to protect important resources from accidental deletion. For test infrastructure, we explicitly want that everything gets deleted, so we should not use these hooks in testing scenarios.
+
+#### Don't use once per Subscription Free Tiers
+
+Often, Free Tiers (like the [Azure Cosmos DB Free Tier](https://docs.microsoft.com/en-us/azure/cosmos-db/optimize-dev-test#azure-cosmos-db-free-tier)) can only be used once per subscription. To avoid conflicts, we should use the Free Tiers for more permanent infrastructure.
+
+## Dynamic provisioning
+
+Before running an Integration Test, Terraform can check if the Test Infrastructure is in the described state or if it has to be created.
+
+You can also chose to destory the Test Infrastructure after the Test Runs to save costs. It depends on the frequency you run these tests, if it makes sense to do this. Usually, during the Development Phase of a project, you might need the Test Infrastructure more often. Later, when the Integration Tests don't run on such a regular basis, it can be useful to be able to provision and shut down the Test Infrastructure only when needed.
+
+Let's take a look at how to achieve this!
+
+:::note
+
+This guide assumes, that you can pass secrets like Connection Strings to your Integration Tests as Environment Variables.
+
+:::
+
+<Tabs
+	groupId="platform"
+  defaultValue="githubactions"
+  values={[
+    {label: 'GitHub Actions', value: 'githubactions'},
+    {label: 'Testing locally', value: 'local'}
+  ]
+}>
+
+<TabItem value="githubactions">
+
+Add the Access Key to the Azure Storage Account that hosts the Terraform Backend the the GitHub Repository Secrets. Make sure to run that command from the directory that contains the according repo.
+
+```bash
+gh secret set TERRAFORM_BACKEND_ACCESS_KEY -b $(az storage account keys list -g terraform --account-name <PROJECT_NAME> -o tsv --query "[0].value")
+```
+
+Create a  GitHub Actions workflow, that includes the following steps:
+
+1. Spin up the Test Infrastructure
+1. Extract the Secrets from and and feeds them into the tests
+1. Execute the Tests
+1. Optional: Shut down the Test Infrastructure
+
+The following workflow file shows and example of how this can be achieved.
+
+```yaml title="integration-tests.yaml"
+name: 'Integration Tests'
+on:
+  workflow_dispatch:
+
+jobs:
+  run-tests:
+    name: 'Run Tests'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+
+    - name: Initialize Terraform
+      run: terraform init
+      working-directory: env/terraform
+      env:
+        ARM_ACCESS_KEY: ${{ secrets.TERRAFORM_BACKEND_ACCESS_KEY }}
+
+    - name: Create Test Infrastructure
+      id: terraform-apply
+      run: terraform apply -auto-approve
+      working-directory: env/terraform
+
+    # Run your tests here
+    - run: # ...
+      env:
+        COSMOSDB__CONNECTIONSTRING: ${{ steps.terraform-apply.outputs.cosmosdb_connection_string }}
+
+    # Optionally destroy the Test Infrastructure after each test run
+    - name: Destroy Test Infrastructure
+      run: terraform destroy
+      working-directory: env/terraform
+      if: always() # Run this, even if previous steps failed
+```
+
+</TabItem>
+
+<TabItem value="local">
+
+#### Authenticate against the Terraform Remote Backend
+
+:::caution Warning
+
+When running Integration Tests locally, you should make sure not to interfere the dynamic infrastructure provisioning of the automated CI/CD pipelines. In case you are destroying the Test Infrastructure after each Test Run, you should use a Local or separate Remote Terraform Backend. When using the local backend, make sure to adjust the backend in the Terraform files.
+
+:::
+
+Set the Access Key of the Azure Storage Account that hosts the Terraform Backend as an Environment Variable.
+
+```bash
+export ARM_ACCESS_KEY=$(az storage account keys list -g terraform --account-name <PROJECT_NAME> -o tsv --query "[0].value")
+```
+
+#### Spin up the Test Infrastructure
+
+Initialize Terraform.
+
+```bash
+terraform init
+```
+
+Apply the Terraform Script to ensure, the Test Infrastructure matches the desired state.
+
+```bash
+terraform apply
+```
+
+To retrieve the Secrets like Connection Strings from the Terraform Output Variables, you can use the `terraform output` command. It's recommended, to directly set them as Environment Variables for your Tests.
+
+```bash
+export COSMOSDB__CONNECTIONSTRING=$(terraform output --raw cosmosdb_connection_string)
+```
+
+#### Run the test
+
+Now run your tests.
+
+#### Optional: Shut down the Test Infrastructure
+
+Afterwards, you can destory the Test Infrastructure with Terraform
+
+```bash
+terraform destroy
+```
+
+</TabItem>
+</Tabs>
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';

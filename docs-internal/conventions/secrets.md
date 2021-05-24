@@ -6,7 +6,6 @@ sidebar_position: 3
 
 We never check-in any secrets into Git repositories.
 
-
 :::danger Important
 
 Connection strings and other secret values should never be part of your source code or committed into your repository!

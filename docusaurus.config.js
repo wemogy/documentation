@@ -77,7 +77,8 @@ module.exports = {
 		},
 		prism: {
       //theme: require('prism-react-renderer/themes/dracula'),
-			additionalLanguages: ['csharp']
+			// Check here: https://prismjs.com/#supported-languages
+			additionalLanguages: ['csharp', 'hcl']
     },
 	},
 	presets: [
