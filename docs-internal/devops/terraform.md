@@ -2,6 +2,39 @@
 
 We use Terraform as our preferred *Infrastructure as Code* technology.
 
+## Authentication
+
+### Local
+
+When playing around with Terraform and running it locally, we can use our own Azure accounts. Just make sure to be logged in.
+
+```bash
+az login
+```
+
+### Automation
+
+To use Terraform in automation and headless scenarios like CI/CD pipelines, we need a way to authenticate against the targeted infrastructure provider.
+
+:::danger Important
+
+There is a potential of introduction of security risks. Client ID and Secret for a Terraform Service Principal should be provided by an Administrators or are available as pre-defined Secrets in CI/CD systems like GitHub Actions.
+
+:::
+
+In Azure, we need to create a Service Principal with **Contributor** rights to the Subscriptions.
+
+```bash
+az ad sp create-for-rbac --name terraform
+```
+
+The credentials for this Service Principal can be passed as Environment Variables, when running Terraform scripts.
+
+```bash
+export ARM_CLIENT_ID=<SERVICE_PRINCIPAL_CLIENT_ID>
+export ARM_CLIENT_ID=<SERVICE_PRINCIPAL_SECRET>
+```
+
 ## Best practices
 
 ### Store the State in Remote Backends
@@ -86,3 +119,4 @@ lifecycle {
   prevent_destroy = true
 }
 ```
+

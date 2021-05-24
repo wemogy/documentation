@@ -118,6 +118,12 @@ Create a  GitHub Actions workflow, that includes the following steps:
 1. Execute the Tests
 1. Optional: Shut down the Test Infrastructure
 
+:::note
+
+This guide assumes, that there are `TERRAFORM_AZURE_APP_ID` and `TERRAFORM_AZURE_SECRET` secrets available as **Organization secrets** in GitHub. If not, please ask an administrator and refer to the [Terraform Authentication docs](/docs-internal/devops/terraform#authentication).
+
+:::
+
 The following workflow file shows and example of how this can be achieved.
 
 ```yaml title="integration-tests.yaml"
@@ -132,6 +138,10 @@ jobs:
     defaults:
       run:
         shell: bash
+    env:
+      ARM_CLIENT_ID: ${{ secrets.TERRAFORM_AZURE_APP_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.TERRAFORM_AZURE_SECRET }}
+      ARM_ACCESS_KEY: ${{ secrets.TERRAFORM_BACKEND_ACCESS_KEY }}
 
     steps:
     - name: Checkout
@@ -143,8 +153,6 @@ jobs:
     - name: Initialize Terraform
       run: terraform init
       working-directory: env/terraform
-      env:
-        ARM_ACCESS_KEY: ${{ secrets.TERRAFORM_BACKEND_ACCESS_KEY }}
 
     - name: Create Test Infrastructure
       id: terraform-apply
@@ -189,7 +197,7 @@ Initialize Terraform.
 terraform init
 ```
 
-Apply the Terraform Script to ensure, the Test Infrastructure matches the desired state.
+Make sure, you are logged into your Azure Account with `az login` and apply the Terraform Script to ensure, the Test Infrastructure matches the desired state.
 
 ```bash
 terraform apply
