@@ -149,6 +149,8 @@ jobs:
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_wrapper: false
 
     - name: Initialize Terraform
       run: terraform init
@@ -161,8 +163,7 @@ jobs:
 
     - name: Terraform Outputs
       id: terraform-outputs
-      run: |
-        # Export each Terraform output you need like this:
+      run: | # Export each Terraform output you need like this:
         echo "::set-output name=cosmosdb_connection_string::$(terraform output --raw cosmosdb_connection_string)"
       working-directory: env/terraform
 
