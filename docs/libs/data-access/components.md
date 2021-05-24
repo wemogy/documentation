@@ -16,7 +16,6 @@ TBD...
 
 TBD...
 
-
 ## Context
 
 `IContext`
@@ -28,6 +27,10 @@ TBD...
 Consolidates client and context
 
 `IEnvironment`
+
+TBD...
+
+## Validators
 
 TBD...
 
