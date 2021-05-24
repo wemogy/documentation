@@ -159,10 +159,17 @@ jobs:
       run: terraform apply -auto-approve
       working-directory: env/terraform
 
+    - name: Terraform Outputs
+      id: terraform-outputs
+      run: |
+        # Export each Terraform output you need like this:
+        echo "::set-output name=cosmosdb_connection_string::$(terraform output --raw cosmosdb_connection_string)"
+      working-directory: env/terraform
+
     # Run your tests here
     - run: # ...
       env:
-        COSMOSDB__CONNECTIONSTRING: ${{ steps.terraform-apply.outputs.cosmosdb_connection_string }}
+        COSMOSDB_CONNECTIONSTRING: ${{ steps.terraform-outputs.outputs.cosmosdb_connection_string }}
 
     # Optionally destroy the Test Infrastructure after each test run
     - name: Destroy Test Infrastructure
