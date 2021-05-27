@@ -103,5 +103,34 @@ var connectionString = configuration["AzureBlobStorage:ConnectionString"];
 </TabItem>
 </Tabs>
 
+## Tests
+
+### Integration Tests
+
+#### Parallelism
+
+Sometimes, you want to avoid parallelism in Integration Tests. This can be the case, when each test Clears and Re-Seeds a Database before its execution. Concurrent tests will cause conflicts then. In [xUnit, parallelism can be controlled](https://stackoverflow.com/questions/1408175/execute-unit-tests-serially-rather-than-in-parallel). To completely turn it off and execute each test after another regardless of their class belonging, follow these steps.
+
+Create a new `xunit.runner.json` file in the Test's root directory.
+
+```json title="xunit.runner.json"
+{
+  "parallelizeAssembly": false,
+  "parallelizeTestCollections": false
+}
+```
+
+Add the following lines to your Test's `.csproj` file.
+
+```xml
+<ItemGroup>
+  <None Update="xunit.runner.json">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </None>
+</ItemGroup>
+```
+
+Find more detailed information in the [official xUnit Documentation](https://xunit.net/docs/running-tests-in-parallel).
+
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
