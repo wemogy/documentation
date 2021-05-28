@@ -1,3 +1,7 @@
+---
+sidebar_position: 1
+---
+
 # Terraform
 
 We use Terraform as our preferred *Infrastructure as Code* technology.
