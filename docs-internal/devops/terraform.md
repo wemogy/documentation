@@ -1,5 +1,5 @@
 ---
-sidebar_position: 1
+sidebar_position: 10
 ---
 
 # Terraform
@@ -29,7 +29,7 @@ There is a potential of introduction of security risks. Client ID and Secret for
 In Azure, we need to create a Service Principal with **Contributor** rights to the Subscriptions.
 
 ```bash
-az ad sp create-for-rbac --name terraform
+az ad sp create-for-rbac --name github-actions
 ```
 
 The credentials for this Service Principal can be passed as Environment Variables, when running Terraform scripts.
@@ -123,4 +123,3 @@ lifecycle {
   prevent_destroy = true
 }
 ```
-
