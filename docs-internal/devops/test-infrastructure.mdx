@@ -1,5 +1,5 @@
 ---
-sidebar_position: 1
+sidebar_position: 100
 ---
 
 # Test Infrastructure
@@ -8,7 +8,7 @@ Especially for integration tests, often there is some testing infrastructure lik
 
 ## Terraform
 
-We use Terraform as an *Infrastructure as Code* technology to describe the required infrastructure for our Integration Tests and to be able to dynamically spin it up and down. Please check out our [Terraform Guide](/docs-internal/devops/terraform) for more.
+We use Terraform as an _Infrastructure as Code_ technology to describe the required infrastructure for our Integration Tests and to be able to dynamically spin it up and down. Please check out our [Terraform Guide](/docs-internal/devops/terraform) for more.
 
 ### Remote backend
 
@@ -22,7 +22,7 @@ Currently, we host the Integration Test infrastructure in the Subscription `0b05
 
 :::
 
-Create an Azure Storage Account with a Blob Container in the central *terraform* Resource Group for your Terraform Backend.
+Create an Azure Storage Account with a Blob Container in the central _terraform_ Resource Group for your Terraform Backend.
 
 ```bash
 az storage account create \
@@ -111,7 +111,7 @@ Add the Access Key to the Azure Storage Account that hosts the Terraform Backend
 gh secret set TERRAFORM_BACKEND_ACCESS_KEY -b $(az storage account keys list -g terraform --account-name <PROJECT_NAME> -o tsv --query "[0].value")
 ```
 
-Create a  GitHub Actions workflow, that includes the following steps:
+Create a GitHub Actions workflow, that includes the following steps:
 
 1. Spin up the Test Infrastructure
 1. Extract the Secrets from and and feeds them into the tests
@@ -144,39 +144,39 @@ jobs:
       ARM_ACCESS_KEY: ${{ secrets.TERRAFORM_BACKEND_ACCESS_KEY }}
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
-      with:
-        terraform_wrapper: false
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_wrapper: false
 
-    - name: Initialize Terraform
-      run: terraform init
-      working-directory: env/terraform
+      - name: Initialize Terraform
+        run: terraform init
+        working-directory: env/terraform
 
-    - name: Create Test Infrastructure
-      id: terraform-apply
-      run: terraform apply -auto-approve
-      working-directory: env/terraform
+      - name: Create Test Infrastructure
+        id: terraform-apply
+        run: terraform apply -auto-approve
+        working-directory: env/terraform
 
-    - name: Terraform Outputs
-      id: terraform-outputs
-      run: | # Export each Terraform output you need like this:
-        echo "::set-output name=cosmosdb_connection_string::$(terraform output --raw cosmosdb_connection_string)"
-      working-directory: env/terraform
+      - name: Terraform Outputs
+        id: terraform-outputs
+        run: | # Export each Terraform output you need like this:
+          echo "::set-output name=cosmosdb_connection_string::$(terraform output --raw cosmosdb_connection_string)"
+        working-directory: env/terraform
 
-    # Run your tests here
-    - run: # ...
-      env:
-        COSMOSDB_CONNECTIONSTRING: ${{ steps.terraform-outputs.outputs.cosmosdb_connection_string }}
+      # Run your tests here
+      - run: # ...
+        env:
+          COSMOSDB_CONNECTIONSTRING: ${{ steps.terraform-outputs.outputs.cosmosdb_connection_string }}
 
-    # Optionally destroy the Test Infrastructure after each test run
-    - name: Destroy Test Infrastructure
-      run: terraform destroy
-      working-directory: env/terraform
-      if: always() # Run this, even if previous steps failed
+      # Optionally destroy the Test Infrastructure after each test run
+      - name: Destroy Test Infrastructure
+        run: terraform destroy
+        working-directory: env/terraform
+        if: always() # Run this, even if previous steps failed
 ```
 
 </TabItem>
