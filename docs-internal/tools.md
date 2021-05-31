@@ -8,4 +8,4 @@ On this page, we collect a list of useful tools.
 
 ## Testing
 
-- [k6s](https://k6.io/) Open Source, easy to use Load Testing Tool
+- [k6s](https://k6.io/): Open Source, easy to use Load Testing Tool
