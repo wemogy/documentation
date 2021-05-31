@@ -1,8 +1,9 @@
 ---
 sidebar_position: 110
+sidebar_label: "Deploy Pull Requests"
 ---
 
-# Deploy Pull Requests
+# Deploy Pull Requests for Review
 
 To review a Pull Request, it can be helpful to deploy it temporarily. Both, the infrastructure and the application itself must be prepared for this kind of deployment. This article shows, how to deplot Pull Requests into a Kubernetes Cluster.
 
