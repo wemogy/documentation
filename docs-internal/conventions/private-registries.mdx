@@ -64,5 +64,43 @@ Insert the PAT in the created file
 </TabItem>
 </Tabs>
 
+### Connect to NuGet registry
+
+<Tabs
+	groupId="os"
+  defaultValue="macos"
+  values={[
+    {label: 'macOS', value: 'macos'}
+  ]
+}>
+<TabItem value="macos">
+
+Create a global `NuGet.Config` file
+
+```bash
+touch $HOME/.nuget/NuGet/NuGet.Config
+```
+
+Insert the PAT in the created file
+
+```xml title="NuGet.Config"
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <packageSources>
+    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" protocolVersion="3" />
+    <add key="github" value="https://nuget.pkg.github.com/wemogy/index.json" />
+  </packageSources>
+  <packageSourceCredentials>
+        <github>
+            <add key="Username" value="<YOUR_USERNAME_HERE>" />
+            <add key="ClearTextPassword" value="<YOUR_PAT_HERE>" />
+        </github>
+    </packageSourceCredentials>
+</configuration>
+```
+
+</TabItem>
+</Tabs>
+
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
