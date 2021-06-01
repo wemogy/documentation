@@ -46,7 +46,7 @@ Sometimes, you want to use [built-in objects](https://helm.sh/docs/chart_templat
 
 Let's say, you want to set an image tag equal to the chart version with the following values.
 
-```yaml title="values.yaml
+```yaml title="values.yaml"
 image:
   repository: 'registry.io/exampe'
   tag: '{{ .Chart.AppVersion }}'
