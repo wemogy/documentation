@@ -66,4 +66,4 @@ contianers:
   image: {{ .Values.image.repository }}:{{ tpl .Values.image.tag . }}
 ```
 
-Whenever the `tpl` function does not find a templated string but just a regular one like `latest` or `1.0.0`, it will just output these strings. So don't worry, if someone is replacing the tempalted string with a regular one in the values.
+Whenever the `tpl` function does not find a templated string but just a regular one like "latest" or "1.0.0", it will just output these strings. So don't worry, if someone is replacing the tempalted string with a regular one in the values.
