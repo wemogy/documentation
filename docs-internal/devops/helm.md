@@ -52,7 +52,7 @@ image:
   tag: '{{ .Chart.AppVersion }}'
 ```
 
-If you now just use `{{ .Values.image.tag }}` in your templates, the resolved content would literally be "`{{ .Chart.AppVersion }}`". To ensure, that this string also gets fed into the templating engine of Helm, we need to use the `tpl` function with them.
+If you now just use `{{ .Values.image.tag }}` in your templates, the resolved content would literally be "*{{ .Chart.AppVersion }}*". To ensure, that this string also gets fed into the templating engine of Helm, we need to use the `tpl` function.
 
 ```yaml
 {{ tpl .Values.example . }}
@@ -66,4 +66,4 @@ contianers:
   image: {{ .Values.image.repository }}:{{ tpl .Values.image.tag . }}
 ```
 
-Whenever the `tpl` function does not find a templated string but just a regular one like `latest` or `1.0.0`, it will just output these strings.
+Whenever the `tpl` function does not find a templated string but just a regular one like `latest` or `1.0.0`, it will just output these strings. So don't worry, if someone is replacing the tempalted string with a regular one in the values.
