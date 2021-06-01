@@ -39,3 +39,31 @@ spec:
   rules:
   - host: {{ include "ingress.hostName" . }}
 ```
+
+### Use Variables and Built-in Objects in Values
+
+Sometimes, you want to use [built-in objects](https://helm.sh/docs/chart_template_guide/builtin_objects/) or re-use other values in your `values.yaml` files. Unfortunately, when using templates in values, they won't get resolved.
+
+Let's say, you want to set an image tag equal to the chart version with the following values.
+
+```yaml title="values.yaml
+image:
+  repository: 'registry.io/exampe'
+  tag: '{{ .Chart.AppVersion }}'
+```
+
+If you now just use `{{ .Values.image.tag }}` in your templates, the resolved content would literally be "`{{ .Chart.AppVersion }}`". To ensure, that this string also gets fed into the templating engine of Helm, we need to use the `tpl` function with them.
+
+```yaml
+{{ tpl .Values.example . }}
+```
+
+So the correct usage of the value from the example above would be:
+
+```yaml
+contianers:
+- name: example
+  image: {{ .Values.image.repository }}:{{ tpl .Values.image.tag . }}
+```
+
+Whenever the `tpl` function does not find a templated string but just a regular one like `latest` or `1.0.0`, it will just output these strings.
