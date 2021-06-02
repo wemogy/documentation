@@ -50,6 +50,12 @@ helm upgrade --install wemogy-identity wemogy/identity \
   --set 'hydra.databaseConnectionString=<OAUTH_DATABASE_CONNECTION_STRING>' # Example: postgres://psqladmin@demopostgres:PASSWORD@demopostgres.postgres.database.azure.com/ory_hydra
 ```
 
+:::warn Warning
+
+Please note, that the two PostgreSQL connection strings are different. The one for Identity (Kratos) starts with **postgresql://** whereas the one for OAuth (Hydra) starts with **postgres://...**.
+
+:::
+
 ### Temporarily expose Admin Endpoint
 
 During the setup phase, it is likely, that you need access to the Admin Endpoint to create clients for example. When not running in wemogy Cloud, the Admin Endpoint is not exposed externally. To temporatily forward the endpoint to your machine, you can run the following command.
