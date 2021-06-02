@@ -19,8 +19,8 @@ The project is designed to be deployed as containers. We currently only support 
   - Database for identity management (e.g. called `ory_kratos`)
   - Database for OAuth management (e.g. called `ory_hydra`)
 - A custom domain `auth.` on your domain with eiter
-  - OPTION A: An **A** record pointing to the IP Address of your Ingress Controller
-  - OPTION B: A **CNAME** record pointing to `identity.<YOUR_TENANT_NAME>.wemogy.cloud` (when running in wemogy Cloud)
+  - OPTION A: **A** record pointing to the IP Address of your Ingress Controller
+  - OPTION B: **CNAME** record pointing to `identity.<YOUR_TENANT_NAME>.wemogy.cloud` (when running in wemogy Cloud)
 
 ### Install via Helm
 
