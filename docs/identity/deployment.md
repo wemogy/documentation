@@ -56,7 +56,7 @@ Please note, that the two PostgreSQL connection strings are different. The one f
 
 :::
 
-### Temporarily expose Admin Endpoint
+### Access the Admin Endpoint
 
 During the setup phase, it is likely, that you need access to the Admin Endpoint to create clients for example. When not running in wemogy Cloud, the Admin Endpoint is not exposed externally. To temporatily forward the endpoint to your machine, you can run the following command.
 
