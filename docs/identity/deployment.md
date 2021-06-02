@@ -15,8 +15,12 @@ The project is designed to be deployed as containers. We currently only support 
   - [Cert Manager](https://cert-manager.io/docs/installation/kubernetes/) installed
   - Access to our private Container Registry
 - Helm installed
-- A PostgreSQL database server with databases for the tenant
-- A custom domain with a CNAME Record `auth.` on your domain pointing to `identity.<YOUR_TENANT_NAME>.wemogy.cloud`
+- A PostgreSQL server with two databases
+  - Database for identity management (e.g. called `ory_kratos`)
+  - Database for OAuth management (e.g. called `ory_hydra`)
+- A custom domain `auth.` on your domain with eiter
+  - OPTION A: An **A** record pointing to the IP Address of your Ingress Controller
+  - OPTION B: A **CNAME** record pointing to `identity.<YOUR_TENANT_NAME>.wemogy.cloud` (when running in wemogy Cloud)
 
 ### Install via Helm
 
@@ -29,7 +33,7 @@ helm repo add wemogy https://wemogy.github.io/helm/charts
 Install the Helm Chart
 
 ```bash
-helm upgrade --install wemogy-identity env/helm/wemogy-identity \
+helm upgrade --install wemogy-identity wemogy/identity \
   --namespace wemogy-identity \
   --create-namespace \
   --set 'config.tenant.name=<YOUR_TENANT_NAME>' \ # Example: contoso
@@ -40,5 +44,8 @@ helm upgrade --install wemogy-identity env/helm/wemogy-identity \
   --set 'config.secrets.salt=<RANDOM_STRING>' \ # Example: a5428!b6123
   --set 'config.email.smtpConnectionUri=<SMTP_CONNECTION>' \ # Example: smtps://name:password@smtp.sendgrid.net:465
   --set 'config.email.fromAddress=<SENDER_ADDRESS>' \ # Example: it@wemogy.com
-  --set 'ingress.certManagerEmail=<YOUR_EMAIL>' # Example: it@contoso.com
+  --set 'ingress.wemogyCloud=false' \ # When not running on wemogy Cloud
+  --set 'ingress.certManagerEmail=<YOUR_EMAIL>' \ # Example: it@contoso.com
+  --set 'kratos.databaseConnectionString=<IDENTITY_DATABASE_CONNECTION_STRING>' \ # Example: postgresql://psqladmin@demopostgres:PASSWORD@demopostgres.postgres.database.azure.com/ory_kratos
+  --set 'hydra.databaseConnectionString=<OAUTH_DATABASE_CONNECTION_STRING>' # Example: postgres://psqladmin@demopostgres:PASSWORD@demopostgres.postgres.database.azure.com/ory_hydra
 ```
