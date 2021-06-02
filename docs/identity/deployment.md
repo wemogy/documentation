@@ -50,7 +50,7 @@ helm upgrade --install wemogy-identity wemogy/identity \
   --set 'hydra.databaseConnectionString=<OAUTH_DATABASE_CONNECTION_STRING>' # Example: postgres://psqladmin@demopostgres:PASSWORD@demopostgres.postgres.database.azure.com/ory_hydra
 ```
 
-:::warn Warning
+:::caution Warning
 
 Please note, that the two PostgreSQL connection strings are different. The one for Identity (Kratos) starts with **postgresql://** whereas the one for OAuth (Hydra) starts with **postgres://...**.
 
