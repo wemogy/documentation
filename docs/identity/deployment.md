@@ -49,3 +49,13 @@ helm upgrade --install wemogy-identity wemogy/identity \
   --set 'kratos.databaseConnectionString=<IDENTITY_DATABASE_CONNECTION_STRING>' \ # Example: postgresql://psqladmin@demopostgres:PASSWORD@demopostgres.postgres.database.azure.com/ory_kratos
   --set 'hydra.databaseConnectionString=<OAUTH_DATABASE_CONNECTION_STRING>' # Example: postgres://psqladmin@demopostgres:PASSWORD@demopostgres.postgres.database.azure.com/ory_hydra
 ```
+
+### Temporarily expose Admin Endpoint
+
+During the setup phase, it is likely, that you need access to the Admin Endpoint to create clients for example. When not running in wemogy Cloud, the Admin Endpoint is not exposed externally. To temporatily forward the endpoint to your machine, you can run the following command.
+
+```bash
+kubectl port-forward svc/wemogy-identity-server-admin 8080:80 -n wemogy-identity
+```
+
+The Admin Endpoint will be available at `http://localhost:8080/` then.
