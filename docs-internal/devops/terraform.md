@@ -31,7 +31,7 @@ In Azure, we need to create a Service Principal with **Owner** rights to the Sub
 ```bash
 az ad sp create-for-rbac \
   --name github-actions \
-  --role Contributor \
+  --role Owner \
   --scopes /subscriptions/<YOUR_SUBSCRIPTION_ID>
 ```
 
