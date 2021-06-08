@@ -22,6 +22,24 @@ The project is designed to be deployed as containers. We currently only support 
   - OPTION A: **A** record pointing to the IP Address of your Ingress Controller
   - OPTION B: **CNAME** record pointing to `identity.<YOUR_TENANT_NAME>.wemogy.cloud` (when running in wemogy Cloud)
 
+#### Optional: Push the container images into your Container Registry
+
+As the official wemogy Container Registy is private at the moment, you will need to gain access, pull the images and then push them into your own registry. You can use the script below, to do this.
+
+```bash
+LATEST_TAG=0.7.0
+REGISTRY=<LOGIN_SERVER_FOR_YOUR_REGISTY>
+
+docker pull wemogycloudacr.azurecr.io/wemogy-identity-public:$LATEST_TAG
+docker pull wemogycloudacr.azurecr.io/wemogy-identity-admin:$LATEST_TAG
+
+docker tag wemogycloudacr.azurecr.io/wemogy-identity-admin:$LATEST_TAG $REGISTRY/wemogy-identity-public:$LATEST_TAG
+docker tag wemogycloudacr.azurecr.io/wemogy-identity-admin:$LATEST_TAG $REGISTRY/wemogy-identity-admin:$LATEST_TAG
+
+docker push $REGISTRY/wemogy-identity-public:$LATEST_TAG
+docker push $REGISTRY/wemogy-identity-admin:$LATEST_TAG
+```
+
 ### Install via Helm
 
 Add the Helm repository
