@@ -36,6 +36,7 @@ Install the Helm Chart
 helm upgrade --install wemogy-identity wemogy/identity \
   --namespace wemogy-identity \
   --create-namespace \
+  --set 'wemogyCloud=false' \ # When not running on wemogy Cloud
   --set 'config.tenant.name=<YOUR_TENANT_NAME>' \ # Example: contoso
   --set 'config.tenant.domain.core=<YOUR_DOMAIN>' \ # Example: contoso.com
   --set 'config.urls.redirect.base=<APP_URL_THAT_HOSTS_YOUR_LOGIN>' \ # Example: https://app.contoso.com
@@ -44,7 +45,6 @@ helm upgrade --install wemogy-identity wemogy/identity \
   --set 'config.secrets.salt=<RANDOM_STRING>' \ # Example: a5428!b6123
   --set 'config.email.smtpConnectionUri=<SMTP_CONNECTION>' \ # Example: smtps://name:password@smtp.sendgrid.net:465
   --set 'config.email.fromAddress=<SENDER_ADDRESS>' \ # Example: it@wemogy.com
-  --set 'ingress.wemogyCloud=false' \ # When not running on wemogy Cloud
   --set 'ingress.certManagerEmail=<YOUR_EMAIL>' \ # Example: it@contoso.com
   --set 'kratos.databaseConnectionString=<IDENTITY_DATABASE_CONNECTION_STRING>' \ # Example: postgresql://psqladmin@demopostgres:PASSWORD@demopostgres.postgres.database.azure.com/ory_kratos
   --set 'hydra.databaseConnectionString=<OAUTH_DATABASE_CONNECTION_STRING>' # Example: postgres://psqladmin@demopostgres:PASSWORD@demopostgres.postgres.database.azure.com/ory_hydra
