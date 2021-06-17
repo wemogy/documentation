@@ -74,6 +74,16 @@ The Database Service uses hooks to let you add custom logic to the most importan
 1. Before operation
 1. After operation
 
+### Partition Key
+
+In case you know the partition key:
+
+TODO: Add which cases this can be... Global or From IContext....
+
+```csharp
+protected override PartitionKey<string> DefaultReadPartitionKeyValue => PartitionKey.Global;
+```
+
 #### Authorize
 
 
