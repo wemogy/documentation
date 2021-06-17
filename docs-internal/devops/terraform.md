@@ -26,17 +26,20 @@ There is a potential of introduction of security risks. Client ID and Secret for
 
 :::
 
-In Azure, we need to create a Service Principal with **Contributor** rights to the Subscriptions.
+In Azure, we need to create a Service Principal with **Owner** rights to the Subscription. The Owner rights are needed, because the Service Principal might need to assign RBAC roles to other resources.
 
 ```bash
-az ad sp create-for-rbac --name github-actions
+az ad sp create-for-rbac \
+  --name github-actions \
+  --role Owner \
+  --scopes /subscriptions/<YOUR_SUBSCRIPTION_ID>
 ```
 
 The credentials for this Service Principal can be passed as Environment Variables, when running Terraform scripts.
 
 ```bash
 export ARM_CLIENT_ID=<SERVICE_PRINCIPAL_CLIENT_ID>
-export ARM_CLIENT_ID=<SERVICE_PRINCIPAL_SECRET>
+export ARM_CLIENT_SECRET=<SERVICE_PRINCIPAL_SECRET>
 ```
 
 ## Best practices
