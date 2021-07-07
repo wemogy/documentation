@@ -13,7 +13,7 @@ The project is designed to be deployed as containers. We currently only support 
 - Kubernetes Cluster
   - [NGINX Ingress Controller](https://kubernetes.github.io/ingress-nginx/) installed
   - [Cert Manager](https://cert-manager.io/docs/installation/kubernetes/) installed
-  - Access to our private Container Registry
+- Username and Password to access the wemogy Container Registry (you can get this as a wemogy customer)
 - Helm installed
 - A PostgreSQL server with two databases
   - Database for identity management (e.g. called `ory_kratos`)
@@ -21,24 +21,6 @@ The project is designed to be deployed as containers. We currently only support 
 - A custom domain `auth.` on your domain with eiter
   - OPTION A: **A** record pointing to the IP Address of your Ingress Controller
   - OPTION B: **CNAME** record pointing to `identity.<YOUR_TENANT_NAME>.wemogy.cloud` (when running in wemogy Cloud)
-
-#### Optional: Push the container images into your Container Registry
-
-As the official wemogy Container Registy is private at the moment, you will need to gain access, pull the images and then push them into your own registry. You can use the script below, to do this.
-
-```bash
-LATEST_TAG=0.7.0
-REGISTRY=<LOGIN_SERVER_FOR_YOUR_REGISTY>
-
-docker pull wemogycloudacr.azurecr.io/wemogy-identity-public:$LATEST_TAG
-docker pull wemogycloudacr.azurecr.io/wemogy-identity-admin:$LATEST_TAG
-
-docker tag wemogycloudacr.azurecr.io/wemogy-identity-admin:$LATEST_TAG $REGISTRY/wemogy-identity-public:$LATEST_TAG
-docker tag wemogycloudacr.azurecr.io/wemogy-identity-admin:$LATEST_TAG $REGISTRY/wemogy-identity-admin:$LATEST_TAG
-
-docker push $REGISTRY/wemogy-identity-public:$LATEST_TAG
-docker push $REGISTRY/wemogy-identity-admin:$LATEST_TAG
-```
 
 ### Install via Helm
 
@@ -65,7 +47,9 @@ helm upgrade --install wemogy-identity wemogy/identity \
   --set 'config.email.fromAddress=<SENDER_ADDRESS>' \ # Example: it@wemogy.com
   --set 'ingress.certManagerEmail=<YOUR_EMAIL>' \ # Example: it@contoso.com
   --set 'kratos.databaseConnectionString=<IDENTITY_DATABASE_CONNECTION_STRING>' \ # Example: postgresql://psqladmin@demopostgres:PASSWORD@demopostgres.postgres.database.azure.com/ory_kratos
-  --set 'hydra.databaseConnectionString=<OAUTH_DATABASE_CONNECTION_STRING>' # Example: postgres://psqladmin@demopostgres:PASSWORD@demopostgres.postgres.database.azure.com/ory_hydra
+  --set 'hydra.databaseConnectionString=<OAUTH_DATABASE_CONNECTION_STRING>' \ # Example: postgres://psqladmin@demopostgres:PASSWORD@demopostgres.postgres.database.azure.com/ory_hydra
+  --set 'wemogyIdentity.pullSecret.username=<WEMOGY_REGISTRY_USERNAME>' \ # Example: demo-wemogy-identity
+  --set 'wemogyIdentity.pullSecret.password=<WEMOGY_REGISTRY_PASSWORD>' # Example: magshjdksfdh78
 ```
 
 :::caution Warning
