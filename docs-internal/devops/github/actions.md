@@ -59,20 +59,17 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - ...
-```
-
-If this workflow is used to check a Pull Request, it is recommended, to add a final step after the matrix build as a fan-in step. Because we can't determine which steps will be executed in the matrix, it does not make sense to use their status as a required one for a Pull Request. So we add a final fan-in step, which then can be used as a required status check for the Pull Request.
-
-```yaml
-# ...
-
+      
+  # Final fan-in step fter all matrix-steps has been executed.
+  # Can be used as a required Pull Request status check
   final:
     name: Pull Request Check successful
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Done."    
+      - run: echo "Done."   
 ```
 
+Note the `final` step in this workflow. If this workflow is used to check a Pull Request, it is recommended, to add such a final fan-in step. As we don't know, which matrix builds get executed for a single Pull Request, it does not make sense to use their status as a required Pull Request check. So we add a final fan-in step, which then can be used as a required status check for the Pull Request.
 
 ![Add Labels to GitHub](/img/docs-internal/devops/github/actions/addGithubStatusCheck.jpg)
