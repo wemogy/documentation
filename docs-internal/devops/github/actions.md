@@ -4,7 +4,9 @@ We use GitHub Actions for our CI/CD pipelines and repository automations. To inc
 
 Currently, in GitHub all Actions that can be used across repositories, have to be stored in public repositories. Anyways, some of the actions we build can be used in other projects by other companies you can find them in the [Public](#public) list. Others only make sense in wemogy internal or customer scenarios. These Actions are listed under [Internal](#internal).
 
-## wemogy Actions
+## Actions by wemogy
+
+At wemogy, we have build some Actions for our own workflows.
 
 ### Public
 
