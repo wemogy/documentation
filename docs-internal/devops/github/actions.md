@@ -74,3 +74,5 @@ If this workflow is used to check a Pull Request, it is recommended, to add a fi
       - run: echo "Done."    
 ```
 
+
+![Add Labels to GitHub](/img/docs-internal/devops/github/actions/addGithubStatusCheck.jpg)
