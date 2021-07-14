@@ -30,7 +30,38 @@ A GitHub Action that authenticates against an AKS cluster
 
 **[GitHub](https://github.com/wemogy/aks-login-action)**
 
-## Best practises
+## Best practices
+
+### Secrets for consuming and publishing packages
+
+When creating GitHub Action workflows that consume or publish packages, we use different secrets. At wemogy, we have a global *Organization secret* called `PACKAGE_FEED_TOKEN` that we can use to **consume packages** from our internal feed. As consuming packages is more common that publishing, we can set this token as a default environment variable. The `PACKAGE_FEED_TOKEN` secret is a read-only token and can not publish packages.
+
+For publishing packages, we use the built-in `GITHUB_TOKEN` secret. It can publish packages to the same repository a workflow is running in. As this token **can't be used for consuming** packages, it should only be used for the publishing step.
+
+Below you can find an example for a JavaScript app, which both uses the `PACKAGE_FEED_TOKEN` to consume packages and then uses the `GITHUB_TOKEN` to publish a package.
+
+```yaml
+npm:
+  runs-on: ubuntu-latest
+  env:
+    NODE_AUTH_TOKEN: ${{ secrets.PACKAGE_FEED_TOKEN }}
+  steps:
+    - name: Checkout at release tag
+      uses: actions/checkout@v2
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 12
+        registry-url: https://npm.pkg.github.com/
+    - name: Install packages
+      run: yarn install
+    - name: Build application
+      run: yarn build
+    - name: Publish NPM package
+      run: npm publish
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
 
 ### Only build what has changed
 
