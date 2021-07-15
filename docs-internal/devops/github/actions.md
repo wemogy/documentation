@@ -1,4 +1,8 @@
-# Actions
+---
+sidebar_label: "Actions"
+---
+
+# GitHub Actions
 
 We use GitHub Actions for our CI/CD pipelines and repository automations. To increase code re-use, we have created our own Actions for the most common tasks. These Actions can be used across multiple wemogy projects.
 
@@ -92,7 +96,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - ...
-      
+
   # Final fan-in step fter all matrix-steps has been executed.
   # Can be used as a required Pull Request status check
   final:
@@ -100,7 +104,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Done."   
+      - run: echo "Done."
 ```
 
 Note the `final` step in this workflow. If this workflow is used to check a Pull Request, it is recommended, to add such a final fan-in step. As we don't know, which matrix builds get executed for a single Pull Request, it does not make sense to use their status as a required Pull Request check. So we add a final fan-in step, which then can be used as a required status check for the Pull Request.
