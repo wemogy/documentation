@@ -59,7 +59,6 @@ Don't check-in these certificates into your version control, as they contain con
 
 Now we have to configure the local web server to use `myapp.com` instead of `localhost` as its host and use the same port as our production app (usually  443).
 
-
 <Tabs
 	groupId="framework"
   defaultValue="react"
@@ -82,7 +81,6 @@ SSL_KEY_FILE=.cert/key.pem
 You can instruct the local web server by creating a file called `.env.development` in the root folder of your app. In there, we can instruct the web server to serve on our domain instead of localhost and use the certificates that we have just created.
 
 When running `yarn start` now, your browser will open on `myapp.com` but serve the locally running version of your app.
-
 
 </TabItem>
 </Tabs>
