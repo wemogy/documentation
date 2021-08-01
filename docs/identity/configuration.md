@@ -96,7 +96,7 @@ You can configure the identity schema in the Helm Chart values.
 ```yaml title="values.yaml"
 config:
   identitySchema: |
-    {      
+    {
       # ...
     }
 ```

@@ -43,7 +43,7 @@ This client has a secret which needs to be protected. Never use this client or i
 Once the client has been created, you can request an Access Token.
 
 <Tabs
-	groupId="framework"
+  groupId="framework"
   defaultValue="curl"
   values={[
     {label: 'cURL', value: 'curl'},
@@ -78,7 +78,7 @@ Register the `TokenService` globally as a singleton.
 ```csharp title="Startup.cs"
 public void ConfigureServices(IServiceCollection services)
 {
-	services.AddSingleton<ITokenService>(new TokenService("<PUBLIC_ENDPOINT>", "<YOUR_CLIENT_ID>", "<YOUR_CLIENT_SECRET>", "<YOUR_SCOPE>", "<YOUR_CLIENT_AUDIENCE>"));
+  services.AddSingleton<ITokenService>(new TokenService("<PUBLIC_ENDPOINT>", "<YOUR_CLIENT_ID>", "<YOUR_CLIENT_SECRET>", "<YOUR_SCOPE>", "<YOUR_CLIENT_AUDIENCE>"));
 }
 ```
 
@@ -89,20 +89,20 @@ Now you can use the built-in Dependency Injection to retrieve the `ITokenService
 [Route("[controller]")]
 public class DemoController : ControllerBase
 {
-	readonly ITokenService _tokenService;
+  readonly ITokenService _tokenService;
 
-	public DemoController(ITokenService tokenService)
-	{
-		_tokenService = tokenService;
-	}
+  public DemoController(ITokenService tokenService)
+  {
+    _tokenService = tokenService;
+  }
 
-	[HttpGet]
-	public async Task Test()
-	{
-		var token = await _tokenService.GetTokenAsync();
+  [HttpGet]
+  public async Task Test()
+  {
+    var token = await _tokenService.GetTokenAsync();
 
-		// ...
-	}
+    // ...
+  }
 }
 ```
 

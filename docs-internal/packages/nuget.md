@@ -55,7 +55,7 @@ The output should look similar to this:
 
 ```
 Package: Wemogy.NugetizerDemo.1.0.0.nupkg
-         /Users/robinmanuelthiel/Source/wemogy/nugetizer-demo/src/Wemogy.NugetizerDemo.Package/bin/Wemogy.NugetizerDemo.nuspec
+        /Users/robinmanuelthiel/Source/wemogy/nugetizer-demo/src/Wemogy.NugetizerDemo.Package/bin/Wemogy.NugetizerDemo.nuspec
     Authors      : wemogy GmbH
     Description  : Package Description
     RepositoryUrl: https://github.com/wemogy/nugetizer-demo

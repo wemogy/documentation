@@ -60,7 +60,7 @@ Don't check-in these certificates into your version control, as they contain con
 Now we have to configure the local web server to use `myapp.com` instead of `localhost` as its host and use the same port as our production app (usually  443).
 
 <Tabs
-	groupId="framework"
+  groupId="framework"
   defaultValue="react"
   values={[
     {label: 'React', value: 'react'}
