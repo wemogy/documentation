@@ -25,7 +25,7 @@ You can find an up-to-date version of the `.editorconfig` file that we use acros
 
 To maintain a high quality standard of our code, we should check a project and all its code changes for coding style violations. This can typically be done during a Pull Request check.
 
-The [eclint](https://github.com/greut/eclint) linting software for EditorConfig can check and fix EditorConfig violations. Checkout the [Tools](/docs-internal/tools) section for more useful tools and installation instructions.
+The [eclint](https://github.com/greut/eclint) linting software for EditorConfig can check and fix EditorConfig violations. Checkout the [Tools](/docs-internal/tools/overview) section for more useful tools and installation instructions.
 
 Check all files in a Git project for EditorConfig rule violations.
 
