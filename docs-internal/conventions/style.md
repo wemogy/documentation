@@ -10,6 +10,9 @@ Unified coding style is an important instrument for readability and maintanabili
 1. All files end with an empty line
 1. We remove trailing whitespaces
 
+
+### EditorConfig
+
 General (language independent) coding style is defined via [EditorConfig](https://editorconfig.org). We only use code editors, that [support EditorConfig](https://editorconfig.org/#pre-installed) natively or via Plugin.
 
 :::info
@@ -40,29 +43,16 @@ eclint fix $(git ls-files)
 
 For .NET projects, we use StyleCop to define and enforce coding style rules.
 
+### StyleCop
+
+StyleCop provides a Roslyn Analyzer extension, which checks .NET code for style vioaltions and marks them as compiler warnings or errors. At wemogy, we use a central set of rules across all our .NET projects. These rules are our own modifications based on the [Default StyleCop Ruleset](https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/StyleCop.Analyzers/StyleCop.Analyzers.CodeFixes/rulesets/StyleCopAnalyzersDefault.ruleset).
+
 :::info
 
 You can find an up-to-date version of the StyleCop configurations files that we use across all projects in [our template repository](https://github.com/wemogy/template).
 
 :::
 
-### StyleCop
+We are currently still in the process of shaping these rules. Below, you can find useful resources
 
 - [Customizing Rules](https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/Configuration.md)
-- [Default Ruleset](https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/StyleCop.Analyzers/StyleCop.Analyzers.CodeFixes/rulesets/StyleCopAnalyzersDefault.ruleset)
-
-
-#### How to fix
-
-```
-CSC : warning SA0001: XML comment analysis is disabled due to project configuration
-```
-
-Add XML Documentation to the .csproj file
-
-```xml
-<PropertyGroup>
-  <GenerateDocumentationFile>true</GenerateDocumentationFile>
-  <NoWarn>$(NoWarn);1591</NoWarn>
-</PropertyGroup>
-```
