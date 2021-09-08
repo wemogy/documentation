@@ -1,0 +1,181 @@
+---
+sidebar_position: 1
+---
+
+# Frontend App
+
+When interacting with users, that use an application on their devices, we often need some sorts of frontend applications. In wemogy Identity, we differentiate between two types of frontend apps.
+
+- A **First Party App** is authored by the owner of the Identity service and hosts the screens for login, registration, user consent and more.
+- A **Third Party App** interacts with the Identity Service only as a Login Provider via OAuth2 or Open ID Connect but does not implement any first-part flows.
+
+Usually, an application has one First Party App and can have no to multiple Third Party Apps.
+
+## First Party App
+
+### Create a client
+
+```bash
+curl --request POST 'http://<ADMIN_ENDPOINT>/client' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "client_id": "<YOUR_CLIENT_ID>",
+  "audience": [ "https://localhost:5001/" ],
+  "grant_types": [ "authorization_code", "refresh_token" ],
+  "response_types": [ "code" ],
+  "scope": "offline_access",
+  "redirect_uris": [ "<YOUR_DOMAIN>/callback" ],
+  "client_type": "frontend"
+}'
+```
+
+### Create the UI
+
+As a First Part App, you need to implement the following screens, which need to render a form and communicate with the identity service:
+
+- Login
+- Registration
+- Consent
+- Account Verification
+- Account Recovery
+- Account Settings
+- Callback
+
+The form is required to collect information, that the identity service needs for the according flows. Each flow that is coming from the API contains all information about the form to render. It is recommended to use the [wemogy Form Generator](https://github.com/wemogy/form-generator) to render the forms.
+
+Communication with the identity service itself should be done by using the [wemogy Identity SDKs](https://github.com/wemogy/identity/tree/main/libs).
+
+<Tabs
+  groupId="framework"
+  defaultValue="react"
+  values={[
+    {label: 'React', value: 'react'}
+  ]
+}>
+<TabItem value="react">
+
+Add the wemogy Identity and Form Generator packages.
+
+```bash
+yarn add @wemogy/identity @wemogy/form-generator-react
+```
+
+In your App Component, create a new instance of `AuthService`. We are using [React Router](https://reactrouter.com/) in this sample, but it can be done with any other routing solution as well.
+
+```tsx title="App.tsx"
+import './App.css';
+import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom';
+import Login from './components/login/Login';
+import { AuthConfiguration, AuthService, IAuthService } from '@wemogy/identity';
+
+// Create one global AuthService instance
+const authService: IAuthService = new AuthService(
+  new AuthConfiguration(
+    'browser',
+    '<YOUR_WEMOGY_IDENTITY_URL>',
+    '<CLIENT_ID>',
+    'http://localhost:3000/callback',
+    '<YOUR_SCOPE>',
+    '<YOUR_AUDIENCE>'
+  )
+);
+
+function App() {
+  return (
+    <Router>
+      <Switch>
+        <Route path="/login">
+          <Login authService={authService} />
+        </Route>
+
+        {/* ... */}
+      </Switch>
+    </Router>
+  );
+}
+
+export default App;
+```
+
+Create a component for each screen. Below you can find an example for the Login screen.
+
+```tsx title="Login.tsx"
+import * as React from 'react';
+import { useEffect, useState } from 'react';
+import { IAuthService } from '@wemogy/identity';
+import { GeneratedForm } from '@wemogy/form-generator-react';
+import { IForm, IMessage } from '@wemogy/form-generator';
+import { Link } from 'react-router-dom';
+
+type LoginProps = {
+  authService: IAuthService;
+};
+
+type LoginState = {
+  messages: IMessage[];
+  form: IForm | undefined;
+};
+
+const Login: React.FC<LoginProps> = props => {
+  const [state, setState] = useState<LoginState>({ messages: [], form: undefined });
+
+  useEffect(() => {
+    const func = async () => {
+      const flow = await props.authService.initLoginFlowAsync();
+      if (flow) {
+        setState({ messages: flow.messages, form: flow.form });
+      }
+    };
+    func();
+  }, [props.authService]);
+
+  if (!state.form) {
+    return null;
+  }
+
+  return (
+    <div>
+      <h2>Login</h2>
+
+      {/* Messages */}
+      {state.messages.map(message => (
+        <span key={message.content}>
+          <b>{message.content}</b>
+        </span>
+      ))}
+
+      {/* Login Form */}
+      <GeneratedForm form={state.form} />
+      <Link to="/recovery">Forgot password</Link>
+    </div>
+  );
+};
+
+export default Login;
+```
+
+</TabItem>
+</Tabs>
+
+## Third Party App
+
+TBD...
+
+### Create a client
+
+```bash
+curl --request POST 'http://<ADMIN_ENDPOINT>/client' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "client_id": "<YOUR_CLIENT_ID>",
+  "audience": [ "https://localhost:5001/" ],
+  "grant_types": [ "authorization_code", "refresh_token" ],
+  "response_types": [ "code" ],
+  "scope": "openid offline_access",
+  "redirect_uris": [ "<YOUR_DOMAIN>/callback" ],
+  "client_type": "frontend"
+}'
+```
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';

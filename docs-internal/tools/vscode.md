@@ -30,7 +30,6 @@ Tips, tricks and recommendations for Visual Studio Code.
 - GitLens
 - Task Explorer
 - Kubernetes
-- Bracket Pair Colorizer 2
 - [vsc-scaffolding](https://marketplace.visualstudio.com/items?itemName=alfnielsen.vsc-scaffolding)
 
 ## Recommended settings
