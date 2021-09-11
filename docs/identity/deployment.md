@@ -48,8 +48,8 @@ helm upgrade --install wemogy-identity wemogy/identity \
   --set 'ingress.certManagerEmail=<YOUR_EMAIL>' \ # Example: it@contoso.com
   --set 'kratos.databaseConnectionString=<IDENTITY_DATABASE_CONNECTION_STRING>' \ # Example: postgresql://psqladmin@demopostgres:PASSWORD@demopostgres.postgres.database.azure.com/ory_kratos
   --set 'hydra.databaseConnectionString=<OAUTH_DATABASE_CONNECTION_STRING>' \ # Example: postgres://psqladmin@demopostgres:PASSWORD@demopostgres.postgres.database.azure.com/ory_hydra
-  --set 'wemogyIdentity.pullSecret.username=<WEMOGY_REGISTRY_USERNAME>' \ # Example: demo-wemogy-identity
-  --set 'wemogyIdentity.pullSecret.password=<WEMOGY_REGISTRY_PASSWORD>' # Example: magshjdksfdh78
+  --set 'images.wemogy.pullSecret.username=<WEMOGY_REGISTRY_USERNAME>' \ # Example: demo-wemogy-identity
+  --set 'images.wemogy.pullSecret.password=<WEMOGY_REGISTRY_PASSWORD>' # Example: magshjdksfdh78
 ```
 
 :::caution Warning
