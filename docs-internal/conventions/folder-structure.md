@@ -10,6 +10,7 @@
     - core
       - Dockerfile
       - Bla.Shared.Core
-      - Bla.Shared.Core.Tests
+      - Bla.Shared.Core.UnitTests
+      - Bla.Shared.Core.IntegrationTests
   - SLN.sln
 ```
