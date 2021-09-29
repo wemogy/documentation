@@ -23,3 +23,6 @@ For libraries and tools where we need to **maintain multiple versions simultaneo
 For applications that we publish (for us or our customers), **we use continuos integrations or scheduled releases and there is no need to support multiple versions at the same time**. There is only one currently released version at a time. What we do need here though is a Staging environment to test release candidates and let customers approve the changes. This is why we use the branching model below for applications and customer project.
 
 ![Branching strategy](/img/docs-internal/conventions/branching-apps.jpg)
+
+- Product Owners can approve or reject Pull Requests from `staging` to `release`
+- **TO BE DETERMINED:** How to pass container tags from staging to release?
