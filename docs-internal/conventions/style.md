@@ -10,7 +10,6 @@ Unified coding style is an important instrument for readability and maintanabili
 1. All files end with an empty line
 1. We remove trailing whitespaces
 
-
 ### EditorConfig
 
 General (language independent) coding style is defined via [EditorConfig](https://editorconfig.org). We only use code editors, that [support EditorConfig](https://editorconfig.org/#pre-installed) natively or via Plugin.
