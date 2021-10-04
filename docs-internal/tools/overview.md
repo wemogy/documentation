@@ -8,6 +8,7 @@ On this page, we collect a list of useful tools, that we recommend every develop
 - [nugetizer](https://github.com/devlooped/nugetizer): Better NuGet Tool
 - [ggshield](https://github.com/GitGuardian/ggshield): GitGurardian CLI to detect secrets
 - [eclint](https://github.com/greut/eclint): Linter for EditorConfig
+- [act](https://github.com/nektos/act): Run GitHub Actions locally
 
 ## Testing
 
