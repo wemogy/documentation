@@ -1,18 +1,18 @@
 # Folder structure
 
 ```
-- src
-  - frontend
-  - libs
-  - sdk
-    - dotnet
-    - javascript
-  - services
-  - shared
-    - core
+- src/
+  - frontend/
+  - libs/
+  - sdk/
+    - dotnet/
+    - javascript/
+  - services/
+  - shared/
+    - core/
       - Dockerfile
-      - Bla.Shared.Core
-      - Bla.Shared.Core.UnitTests
-      - Bla.Shared.Core.IntegrationTests
-  - SLN.sln
+      - Bla.Shared.Core/
+      - Bla.Shared.Core.UnitTests/
+      - Bla.Shared.Core.IntegrationTests/
+  - Solution.sln
 ```
