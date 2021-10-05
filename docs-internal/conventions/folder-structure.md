@@ -5,6 +5,8 @@
   - frontend
   - libs
   - sdk
+    - dotnet
+    - javascript
   - services
   - shared
     - core
