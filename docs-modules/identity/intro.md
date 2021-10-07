@@ -8,4 +8,4 @@ TBD...
 
 ## Login Flow
 
-![Docusaurus logo](/img/docs/identity/login-flow.png)
+![Login Flow](/img/docs-modules/identity/login-flow.png)

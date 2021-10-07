@@ -11,26 +11,25 @@ module.exports = {
   projectName: 'documentation', // Usually your repo name.
   themeConfig: {
     navbar: {
-      title: 'Developers',
+      title: 'Documentation',
       logo: {
         alt: 'wemogy logo',
         src: 'img/logo.svg'
       },
       items: [
+        // {
+        //   type: 'doc',
+        //   docId: 'overview',
+        //   position: 'left',
+        //   label: 'Documentation'
+        // },
         {
           type: 'doc',
           docId: 'overview',
+          docsPluginId: 'modules',
           position: 'left',
-          label: 'Documentation'
+          label: 'Modules'
         },
-        {
-          type: 'doc',
-          docId: 'overview',
-          docsPluginId: "docs-internal",
-          position: 'left',
-          label: 'Internal'
-        },
-        { to: '/blog', label: 'Blog', position: 'left' },
         {
           href: 'https://github.com/wemogy',
           label: 'GitHub',
@@ -41,15 +40,15 @@ module.exports = {
     footer: {
       style: 'dark',
       links: [
-        {
-          title: 'Docs',
-          items: [
-            {
-              label: 'Overview',
-              to: '/docs/overview'
-            }
-          ]
-        },
+        // {
+        //   title: 'Docs',
+        //   items: [
+        //     {
+        //       label: 'Overview',
+        //       to: '/docs/overview'
+        //     }
+        //   ]
+        // },
         {
           title: 'Community',
           items: [
@@ -79,7 +78,7 @@ module.exports = {
       //theme: require('prism-react-renderer/themes/dracula'),
       // Check here: https://prismjs.com/#supported-languages
       additionalLanguages: ['csharp', 'hcl']
-    },
+    }
   },
   presets: [
     [
@@ -103,12 +102,12 @@ module.exports = {
     [
       '@docusaurus/plugin-content-docs',
       {
-        id: 'docs-internal',
-        path: 'docs-internal',
-        routeBasePath: 'docs-internal',
-        sidebarPath: require.resolve('./sidebars-internal.js'),
+        id: 'modules',
+        path: 'docs-modules',
+        routeBasePath: 'modules',
+        sidebarPath: require.resolve('./sidebars.js'),
         editUrl: 'https://github.com/wemogy/documentation/edit/main/'
-      },
-    ],
-  ],
+      }
+    ]
+  ]
 };
