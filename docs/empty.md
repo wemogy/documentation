@@ -1,1 +1,1 @@
-Docusaurus need a /docs folder
+Docusaurus needs a /docs folder
