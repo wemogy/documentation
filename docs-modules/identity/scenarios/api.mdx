@@ -1,0 +1,57 @@
+---
+sidebar_position: 3
+---
+
+# API
+
+TBD...
+
+<Tabs
+  groupId="framework"
+  defaultValue="aspnetcore"
+  values={[
+    {label: 'ASP.NET Core', value: 'aspnetcore'}
+  ]
+}>
+<TabItem value="aspnetcore">
+
+First, make sure you are [authenticated with GitHub packages](https://docs.github.com/en/packages/guides/configuring-dotnet-cli-for-use-with-github-packages#authenticating-to-github-packages). Then add the package to your ASP.NET Core project
+
+```bash
+dotnet add package Wemogy.Identity.AspNetCore
+```
+
+Add wemogy Identity to your services and point it to the url of the Wemogy.Identity instance
+
+```csharp title="Startup.cs"
+public void ConfigureServices(IServiceCollection services)
+{
+    // Add Wemogy Authentication
+    services.AddWemogyIdentity(options => {
+        options.OAuthJwtAuthority = "https://<YOUR_CUSTOM_WEMOGY_IDENTITY_URL>/issuer";
+        options.OAuthJwtAudience = "https://<THE_URL_THIS_APP_IS_RUNNING_ON>";
+    });
+
+    // ...
+}
+```
+
+Make sure, to use both Authentication and Authorization
+
+```csharp title="Startup.cs"
+public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+{
+    // ...
+
+    app.UseAuthentication();
+    app.UseAuthorization();
+
+    // ...
+}
+```
+
+</TabItem>
+</Tabs>
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
