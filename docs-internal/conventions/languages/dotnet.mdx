@@ -4,17 +4,16 @@ sidebar_position: 1
 
 # .NET
 
-Conventions for .NET
+## Conventions
 
-## ASP.NET Core
-
-- We use the latest version of .NET
+- We use the latest stable version of .NET
 - We use `System.Text.Json` over `Newtonsoft.Json` when possible
 - We don't use `[JsonPropertyName]` but prefer Json Naming strategies
 - We use lower `camelCase` for JSON element names
 - We use [Refit](https://github.com/reactiveui/refit) for abstracting REST APIs
 - We use [AutoMapper](https://automapper.org/) for class mappings
 - We use [FluentValidation](https://github.com/FluentValidation/FluentValidation) for validating models
+- We use [NuGetizer](https://github.com/devlooped/nugetizer) when creating NuGet packages
 
 ## Secrets
 
@@ -45,7 +44,7 @@ The secrets for development should be stored in the `appsettings.Development.jso
 ### Using the secret
 
 <Tabs
-	groupId="framework"
+  groupId="framework"
   defaultValue="aspnet"
   values={[
     {label: 'ASP.NET', value: 'aspnet'},
@@ -102,6 +101,35 @@ var connectionString = configuration["AzureBlobStorage:ConnectionString"];
 
 </TabItem>
 </Tabs>
+
+## Tests
+
+### Integration Tests
+
+#### Parallelism
+
+Sometimes, you want to avoid parallelism in Integration Tests. This can be the case, when each test Clears and Re-Seeds a Database before its execution. Concurrent tests will cause conflicts then. In [xUnit, parallelism can be controlled](https://stackoverflow.com/questions/1408175/execute-unit-tests-serially-rather-than-in-parallel). To completely turn it off and execute each test after another regardless of their class belonging, follow these steps.
+
+Create a new `xunit.runner.json` file in the Test's root directory.
+
+```json title="xunit.runner.json"
+{
+  "parallelizeAssembly": false,
+  "parallelizeTestCollections": false
+}
+```
+
+Add the following lines to your Test's `.csproj` file.
+
+```xml
+<ItemGroup>
+  <None Update="xunit.runner.json">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </None>
+</ItemGroup>
+```
+
+Find more detailed information in the [official xUnit Documentation](https://xunit.net/docs/running-tests-in-parallel).
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';

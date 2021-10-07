@@ -21,14 +21,14 @@ module.exports = {
   //     label: 'Tutorial',
   //     items: ['hello'],
   //   },
-	// 	{
+  // 	{
   //     type: 'category',
   //     label: 'Tutorial 2',
   //     items: ['hello', {
-	// 			type: 'category',
-	// 			label: 'Tutorial 2',
-	// 			items: ['hello'],
-	// 		},],
+  // 			type: 'category',
+  // 			label: 'Tutorial 2',
+  // 			items: ['hello'],
+  // 		},],
   //   },
   // ],
 

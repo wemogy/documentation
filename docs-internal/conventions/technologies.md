@@ -15,4 +15,3 @@ We use the following technologies for our products wherever it makes sense. Exce
 
 - We use Typescript
 - We use React (Base)
-
