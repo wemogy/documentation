@@ -31,6 +31,13 @@ module.exports = {
           label: 'Modules'
         },
         {
+          type: 'doc',
+          docId: 'overview',
+          docsPluginId: 'workWithUs',
+          position: 'left',
+          label: 'Work with us'
+        },
+        {
           href: 'https://github.com/wemogy',
           label: 'GitHub',
           position: 'right'
@@ -105,6 +112,16 @@ module.exports = {
         id: 'modules',
         path: 'docs-modules',
         routeBasePath: 'modules',
+        sidebarPath: require.resolve('./sidebars.js'),
+        editUrl: 'https://github.com/wemogy/documentation/edit/main/'
+      }
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'workWithUs',
+        path: 'docs-work-with-us',
+        routeBasePath: 'work-with-us',
         sidebarPath: require.resolve('./sidebars.js'),
         editUrl: 'https://github.com/wemogy/documentation/edit/main/'
       }
