@@ -33,6 +33,13 @@ module.exports = {
         {
           type: 'doc',
           docId: 'overview',
+          docsPluginId: 'reactbase',
+          position: 'left',
+          label: 'ReactBase'
+        },
+        {
+          type: 'doc',
+          docId: 'overview',
           docsPluginId: 'workWithUs',
           position: 'left',
           label: 'Work with us'
@@ -112,6 +119,16 @@ module.exports = {
         id: 'modules',
         path: 'docs-modules',
         routeBasePath: 'modules',
+        sidebarPath: require.resolve('./sidebars.js'),
+        editUrl: 'https://github.com/wemogy/documentation/edit/main/'
+      }
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'reactbase',
+        path: 'docs-reactbase',
+        routeBasePath: 'reactbase',
         sidebarPath: require.resolve('./sidebars.js'),
         editUrl: 'https://github.com/wemogy/documentation/edit/main/'
       }
