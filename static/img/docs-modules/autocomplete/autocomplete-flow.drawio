@@ -1,0 +1,81 @@
+<mxfile host="65bd71144e">
+    <diagram id="_KkF98Ebx747qPU3sn6b" name="Page-1">
+        <mxGraphModel dx="3707" dy="752" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="31" value="API Gateway" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="360" y="120" width="100" height="520" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="" style="endArrow=none;dashed=1;html=1;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="640" y="1012.2857142857143" as="sourcePoint"/>
+                        <mxPoint x="640" y="40" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="5" value="Customer Backend" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="160" y="40" width="200" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="" style="endArrow=none;dashed=1;html=1;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1280" y="360" as="sourcePoint"/>
+                        <mxPoint x="1280" y="40" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="13" value="wemogy Autocomplete service" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="720" y="60" width="200" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="App" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="200" y="120" width="100" height="300" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="API" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="720" y="120" width="100" height="470" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="get autocomplete source" style="html=1;verticalAlign=bottom;startArrow=oval;startFill=1;endArrow=block;startSize=8;" edge="1" parent="1">
+                    <mxGeometry width="60" relative="1" as="geometry">
+                        <mxPoint x="250" y="220" as="sourcePoint"/>
+                        <mxPoint x="410" y="220" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="27" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="1">
+                    <mxGeometry x="405" y="220" width="10" height="360" as="geometry"/>
+                </mxCell>
+                <mxCell id="28" value="Auth&lt;br&gt;Service" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="1">
+                    <mxGeometry x="550" y="250" width="65" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="29" value="check if user is allowed (c1)" style="html=1;verticalAlign=bottom;endArrow=block;entryX=0;entryY=0;" edge="1" target="28" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="415" y="250" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="30" value="return" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;exitX=0;exitY=0.95;" edge="1" source="28" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="415" y="326" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="41" value="" style="group;dashed=1;align=right;" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="-420" y="40" width="500" height="220" as="geometry"/>
+                </mxCell>
+                <mxCell id="42" value="Check if user is allowed&lt;br&gt;&lt;br&gt;snaatch:&lt;br&gt;1. Get tenant id from header&lt;br&gt;2. User has `canUseFileDetailsAutocomplete` permissions in tenant&lt;br&gt;3. If yes, forward request to autocomplete service&lt;br&gt;&lt;br&gt;DigitTool:&lt;br&gt;1. Get form id from namepace in request url&lt;br&gt;2. Get collector or qualityAssurer type from namespace in request url&lt;br&gt;3. Check if user has `canCollect`/`canPerformQualityAssurance` right in form&lt;br&gt;4. If yes, forward request to autocomplete service" style="shape=note2;boundedLbl=1;whiteSpace=wrap;html=1;size=31;verticalAlign=top;align=left;dashed=1;" vertex="1" parent="41">
+                    <mxGeometry width="500" height="220" as="geometry"/>
+                </mxCell>
+                <mxCell id="43" value="&lt;b&gt;&lt;font style=&quot;font-size: 20px&quot;&gt;C1&lt;/font&gt;&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="41">
+                    <mxGeometry x="440" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="48" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;align=right;" vertex="1" parent="1">
+                    <mxGeometry x="765" y="380" width="10" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="49" value="get autocomplete sources" style="html=1;verticalAlign=bottom;endArrow=block;entryX=0;entryY=0;" edge="1" target="48" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="414" y="380" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="50" value="return redirect to storage incl. SAS token" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;exitX=0;exitY=0.95;" edge="1" source="48" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="414" y="456" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

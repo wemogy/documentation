@@ -1,0 +1,73 @@
+# wemogy Autocomplete service
+
+## What is the wemogy Autocomplete Service?
+
+The wemogy autocomplete service can be used to quickly implement autocomplete support for string fields of your application.
+
+### Which field types are supported?
+
+- String fields
+- String array fields (To be implemented!)
+
+## Q&A
+
+### Autocomplete.ignore?
+
+You can ignore pathes from autocomplete by adding them to the config
+
+```<yaml>
+ignore:
+  # ignore a single property
+  - /fullname
+  # ignore all properties of an object
+  - /iptc/*
+```
+
+### Multiple fields with same autocomplete source?
+
+If multiple fields should have the same autocomplete source, you can just configure the dependency in the frontend.
+
+// To be implemented!
+
+```<yaml>
+merge:
+  - namespace: 'firstname'
+    properties:
+    - /firstname
+    - /billingAddress/firstname
+    - /shippingAddress/firstname
+```
+
+### Multi-Tenancy or multiple autocomplete sources for the same field?
+
+Multi-Tenancy means that you can have different autocomplete sources for different tenants.
+
+Multiple autocomplete sources for the same field means that you can have more then one autocomplete source for a single field. This you may need if your application supports different actors (data collector, quality assurer) and each actor should have its own autocomplete source.
+
+Each autocomplete source is associated with a **namespace id**. A namespace id can be:
+
+- One namespace per tenant: `tenantId`
+- One namespace per customer: `customerId`
+- One namespace per form and actor: `formId-actorId`
+
+### How does authorization works?
+
+wemogy Authorization don't cares about authorization, please implement the logic on your own. In the following you find a reference usage implementation:
+
+The types of users:
+
+- Anonymous Consumer
+  - Only consuming the autocomplete sources to get the autocomplete suggestions. (**GET** request)
+- Consumer
+  - Consuming the autocomplete sources to get the autocomplete suggestions. (**GET** request)
+  - Usage will be reported (**POST** reportUsage)
+    - the occurrence and last used will be updated in existing autocomplete items
+    - new autocomplete items will be ignored
+- Autocomplete Contributor (**POST** contribute)
+  - Can update autocomplete sources.
+
+GET `https://myapp.com/api/autocomplete/namespace-parts/propertyName`
+
+- Redirect to the storage source incl. SAS token to download the JSON payload
+
+<img alt="Docusaurus with Keytar" src="/img/docs-modules/autocomplete/Diagram.svg" />
