@@ -17,6 +17,7 @@ environments:
   - name: default
     pools:
       - name: worker-default
+        preferred: true
       - name: worker-default-secondary
   - name: video
     pools:
@@ -25,13 +26,14 @@ environments:
 
 ## Kubernetes
 
-When hosting in Kubernetes, Environments are controlled via [Taints and Tolerations](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/). To add Nodes to an environment, add a Taint to it.
+When hosting in Kubernetes, Environments are controlled via [Taints and Tolerations](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/) and [Node affinty](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity). To add Nodes to an environment, add a Taint and Label to it.
 
 ```bash
 kubectl taint nodes node1 wemogy-media-environment=<ENVIRONMENT_NAME>:NoSchedule
+kubectl label nodes node1 wemogy-media-environment=<ENVIRONMENT_NAME>
 ```
 
-Each Steps will be scheduled as a [Kubernetes Job](https://kubernetes.io/docs/concepts/workloads/controllers/job/), which gets the following tolerations to find a matching Environment.
+Each Steps will be scheduled as a [Kubernetes Job](https://kubernetes.io/docs/concepts/workloads/controllers/job/), which gets the following tolerations and affinities to find a matching Environment.
 
 ```yaml
 tolerations:
@@ -39,6 +41,16 @@ tolerations:
   operator: "Equal"
   value: "<ENVIRONMENT_NAME>"
   effect: "NoSchedule"
+  
+affinity:    
+  preferredDuringSchedulingIgnoredDuringExecution:
+  - weight: 1 # or 0, if pool has referred: false
+    preference:
+      matchExpressions:
+      - key: wemogy-media-environment
+        operator: In
+        values:
+        - <ENVIRONMENT_NAME>
 ```
 
 The environemnt can be set for each step in the workflow. When no environment is specified, the `default` environment will be used to schedule a step.
