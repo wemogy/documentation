@@ -20,7 +20,7 @@ environments:
       - name: worker-default-secondary
   - name: video
     pools:
-      - name: workder-gpu
+      - name: worker-gpu
 ```
 
 ## Kubernetes
