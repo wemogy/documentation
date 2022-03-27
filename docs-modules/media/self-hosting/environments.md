@@ -8,7 +8,7 @@ To define the available environments, you have to modify the `environments.yaml`
 
 :::info
 
-Having a `default` environment is mandatory.
+Having a default environment is mandatory. You will need to make sure to always have one environment with `name: default`.
 
 :::
 
