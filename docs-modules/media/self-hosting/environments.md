@@ -26,11 +26,16 @@ environments:
 
 ## Kubernetes
 
-When hosting in Kubernetes, Environments are controlled via [Taints and Tolerations](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/) and [Node affinty](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity). To add Nodes to an environment, add a Taint and Label to it.
+When hosting in Kubernetes, Environments are controlled via [Taints and Tolerations](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/) and [Node affinty](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity). To add Nodes to an environment, add a Label to it.
+
+```bash
+kubectllabel nodes node1 wemogy-media-environment=<ENVIRONMENT_NAME>
+```
+
+If you additionally want to ensure, that only Step Processors are scheduled to specific nodes, add a Taint to these nodes.
 
 ```bash
 kubectl taint nodes node1 wemogy-media-environment=<ENVIRONMENT_NAME>:NoSchedule
-kubectl label nodes node1 wemogy-media-environment=<ENVIRONMENT_NAME>
 ```
 
 Each Steps will be scheduled as a [Kubernetes Job](https://kubernetes.io/docs/concepts/workloads/controllers/job/), which gets the following tolerations and affinities to find a matching Environment.
