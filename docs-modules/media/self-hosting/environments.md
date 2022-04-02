@@ -42,15 +42,16 @@ tolerations:
   value: "<ENVIRONMENT_NAME>"
   effect: "NoSchedule"
   
-affinity:    
-  preferredDuringSchedulingIgnoredDuringExecution:
-  - weight: 1 # or 0, if pool has referred: false
-    preference:
-      matchExpressions:
-      - key: wemogy-media-environment
-        operator: In
-        values:
-        - <ENVIRONMENT_NAME>
+affinity:
+  nodeAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+    - weight: 10 # or 1, if pool has referred: false
+      preference:
+        matchExpressions:
+        - key: wemogy-media-environment
+          operator: In
+          values:
+          - <ENVIRONMENT_NAME>
 ```
 
 The environemnt can be set for each step in the workflow. When no environment is specified, the `default` environment will be used to schedule a step.
@@ -60,5 +61,5 @@ jobs:
   - id: job1
     steps:
       - id: step1
-        env: defaul # <- Define environment here
+        env: video # <- Define environment here
 ```
