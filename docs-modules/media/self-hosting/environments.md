@@ -15,11 +15,17 @@ Having a default environment is mandatory. You will need to make sure to always 
 ```yaml title="environments.yaml"
 environments:
   - name: default
+    stepResources:
+      cpu: 250
+      memory: 512
     pools:
       - name: worker-default
         preferred: true
       - name: worker-default-secondary
   - name: video
+    stepResources:
+      cpu: 500
+      memory: 1024
     pools:
       - name: worker-gpu
 ```
