@@ -2,6 +2,6 @@
 
 ## Custom Events
 
-| Topic | Pub Sub | Description |
-| -- | -- | --|
-| `download-ready` | `wemogy-media-pubsub-download` |  |
+| Topic | Description |
+| -- | -- |
+| `download-ready` |  |
